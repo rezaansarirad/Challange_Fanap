@@ -7,6 +7,7 @@ import CategoryBreakdown from './components/CategoryBreakdown';
 import AttentionList from './components/AttentionList';
 import MessagesTable from './components/MessagesTable';
 import { businessMinutesLeft } from './sla';
+import DashboardSkeleton from './components/DashboardSkeleton';
 
 export default function App() {
   const [result, setResult] = useState<AnalyzeResult | null>(null);
@@ -34,9 +35,10 @@ export default function App() {
 
   return (
     <main className="container" dir="rtl">
-      <header className="app-header"><div><p className="eyebrow">بازارچه / عملیات پشتیبانی</p><h1>رادار پیام‌های مشتریان</h1><p className="muted">صادرات روزانه را بارگذاری کنید تا موارد مهم را با اطمینان پیگیری کنید.</p></div><div className="live-indicator" role="status" aria-atomic="true"><span /> به‌روزرسانی زنده هر دقیقه</div></header>
+      <header className="app-header"><div><p className="eyebrow">بازارچه / عملیات پشتیبانی</p><h1>پیگیری پیام‌های مشتریان</h1><p className="muted">صادرات روزانه را بارگذاری کنید تا موارد مهم را با اطمینان پیگیری کنید.</p></div><div className="live-indicator" role="status" aria-atomic="true"><span /> به‌روزرسانی زنده هر دقیقه</div></header>
       <UploadForm onSubmit={handleSubmit} loading={loading} />
       {error && <p className="error" role="alert">{error}</p>}
+      {loading && <DashboardSkeleton />}
       {result && (
         <>
           <SummaryTiles total={result.total_unique_messages} urgent={result.messages.filter((message) => result.attention_message_ids.includes(message.message_id) && businessMinutesLeft(message.received_at, now) <= 0).length} />

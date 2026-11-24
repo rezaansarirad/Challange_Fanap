@@ -10,3 +10,4 @@
 - Added Persian/Arabic order-digit normalization and safer duplicate behavior for empty bodies.
 - Generated `predictions.csv` from `eval_messages.csv` at its supplied export time (314 message rows).
 - Verified `npm run build`, `npm test` (5 tests), and 13 non-API Python tests. Full API collection requires the repository's Docker Python 3.12 because the host interpreter is Python 3.9.
+- Refined Persian copy, added accessible drag-and-drop CSV selection, replaced the native date-time field with styled UTC fields, and added design-consistent loading skeletons.
