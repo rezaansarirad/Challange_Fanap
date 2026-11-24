@@ -12,14 +12,15 @@ export default function CategoryBreakdown({ counts, total }: Props) {
       <h2>Categories</h2>
       <ul className="breakdown">
         {CATEGORIES.map((cat) => {
-          const pct = (counts[cat] / total * 100).toFixed(1);
+          const count = counts[cat] ?? 0;
+          const pct = total ? (count / total * 100).toFixed(1) : '0.0';
           return (
             <li key={cat}>
               <span className="cat-name">{formatCategory(cat)}</span>
               <span className="bar">
                 <span className="bar-fill" style={{ width: `${pct}%` }} />
               </span>
-              <span className="cat-count">{counts[cat].toLocaleString()}</span>
+              <span className="cat-count">{count.toLocaleString('fa-IR')}</span>
               <span className="cat-pct">{pct}%</span>
             </li>
           );

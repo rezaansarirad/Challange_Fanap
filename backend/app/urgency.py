@@ -22,6 +22,6 @@ def is_urgent(
     """
     if severity_hint != "high":
         return False
-    if answered_at is not None and not pd.isna(answered_at) and answered_at <= now:
+    if answered_at is not None and not pd.isna(answered_at):
         return False
     return business_hours_between(received_at, now) >= sla_hours

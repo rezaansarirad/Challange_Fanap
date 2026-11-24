@@ -29,6 +29,7 @@ export interface AnalyzeResult {
   total_unique_messages: number;
   category_counts: Record<Category, number>;
   urgent_message_ids: string[];
+  attention_message_ids: string[];
   messages: Message[];
 }
 

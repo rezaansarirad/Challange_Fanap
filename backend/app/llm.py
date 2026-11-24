@@ -61,11 +61,14 @@ class LLMClient:
         response.raise_for_status()
         return response.json()["choices"][0]["message"]["content"]
 
-    def complete_text(self, prompt: str) -> str:
+    def complete_text(self, system_prompt: str, prompt: str) -> str:
         payload = {
             "model": self._model,
             "temperature": 0.3,
-            "messages": [{"role": "user", "content": prompt}],
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt},
+            ],
         }
         with httpx.Client(timeout=self._timeout) as client:
             response = client.post(self._url, json=payload, headers=self._headers)

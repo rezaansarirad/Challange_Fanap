@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useForm, type SubmitHandler } from 'react-hook-form';
 
 interface Props {
   onSubmit: (file: File, now?: string) => void;
@@ -6,28 +6,23 @@ interface Props {
 }
 
 export default function UploadForm({ onSubmit, loading }: Props) {
-  const [file, setFile] = useState<File | null>(null);
-  const [now, setNow] = useState('');
+  const { register, handleSubmit, formState: { errors } } = useForm<{ file: FileList; now: string }>({ mode: 'onBlur' });
 
-  function submit(e: FormEvent) {
-    e.preventDefault();
-    if (!file) return;
-    // datetime-local has no zone; treat the entered value as UTC
-    onSubmit(file, now ? `${now}:00Z` : undefined);
-  }
+  const submit: SubmitHandler<{ file: FileList; now: string }> = ({ file, now }) => onSubmit(file[0], now ? `${now}:00Z` : undefined);
 
   return (
-    <form className="card upload" onSubmit={submit}>
-      <label>
-        CSV file
-        <input data-testid="upload-input" type="file" accept=".csv,text/csv" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
+    <form className="card upload" onSubmit={handleSubmit(submit)} noValidate>
+      <label htmlFor="file">
+        فایل خروجی CSV
+        <input id="file" data-testid="upload-input" type="file" accept=".csv,text/csv" aria-invalid={Boolean(errors.file)} {...register('file', { required: 'یک فایل CSV انتخاب کنید.', validate: (files) => files?.[0]?.name.toLowerCase().endsWith('.csv') || 'فرمت فایل باید CSV باشد.' })} />
       </label>
-      <label>
-        "Now" override (UTC, optional)
-        <input type="datetime-local" value={now} onChange={(e) => setNow(e.target.value)} />
+      {errors.file && <p className="field-error" role="alert">{errors.file.message}</p>}
+      <label htmlFor="now">
+        زمان مرجع (UTC، اختیاری)
+        <input id="now" type="datetime-local" {...register('now')} />
       </label>
-      <button type="submit" data-testid="analyze-button" disabled={!file || loading}>
-        {loading ? 'Analyzing...' : 'Analyze'}
+      <button type="submit" data-testid="analyze-button" disabled={loading}>
+        {loading ? 'در حال تحلیل…' : 'تحلیل فایل'}
       </button>
     </form>
   );

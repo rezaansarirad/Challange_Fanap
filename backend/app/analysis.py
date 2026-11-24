@@ -10,9 +10,9 @@ import pandas as pd
 from .classify import classify_messages
 from .config import Settings, get_settings
 from .dedup import mark_duplicates
-from .drafts import prefetch
 from .ingest import load_messages
 from .orders import extract_order_ref
+from .sla import business_hours_between
 from .urgency import is_urgent
 
 
@@ -52,6 +52,14 @@ def enrich(df: pd.DataFrame, now: datetime, settings: Settings) -> pd.DataFrame:
             canonical, df["severity_hint"], df["received_at"], df["answered_at"]
         )
     ]
+    df["business_minutes_left"] = [
+        int(round(settings.urgent_sla_business_hours * 60 - 60 * business_hours_between(received, now)))
+        if bool(is_canonical) and hint == "high" and (answered is None or pd.isna(answered))
+        else None
+        for is_canonical, hint, received, answered in zip(
+            canonical, df["severity_hint"], df["received_at"], df["answered_at"]
+        )
+    ]
     return df
 
 
@@ -79,16 +87,24 @@ def build_report(df: pd.DataFrame, include_details: bool = False) -> dict[str, A
                     "body": row.body,
                     "severity": row.severity_hint,
                     "severity_hint": row.severity_hint,
+                    "business_minutes_left": row.business_minutes_left,
                 }
             )
         messages.append(item)
 
-    return {
+    result = {
         "total_unique_messages": int(len(unique)),
         "category_counts": {str(k): int(v) for k, v in counts.items()},
         "urgent_message_ids": sorted(unique.loc[unique["is_urgent"], "message_id"].tolist()),
         "messages": messages,
     }
+    if include_details:
+        result["attention_message_ids"] = [
+            str(row.message_id)
+            for row in df.itertuples(index=False)
+            if row.duplicate_of is None and row.severity_hint == "high" and pd.isna(row.answered_at)
+        ]
+    return result
 
 
 def analyze(
@@ -103,8 +119,6 @@ def analyze(
     df = load_messages(source)
     df = enrich(df, now, settings)
     report = build_report(df, include_details=include_details)
-    if prefetch_drafts:
-        # drafts are generated up front so they are instant when requested
-        urgent = set(report["urgent_message_ids"])
-        prefetch([m for m in report["messages"] if m["message_id"] in urgent], settings)
+    # Drafts must only consume LLM quota after the agent explicitly asks for one.
+    # Keep the argument for backward compatibility with callers from the starter.
     return report

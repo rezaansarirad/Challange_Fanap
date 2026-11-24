@@ -4,13 +4,12 @@ export function formatPercent(part: number, total: number): string {
 }
 
 export function formatCategory(cat: string): string {
-  const label = cat.replace(/_/g, ' ');
-  return label.charAt(0).toUpperCase() + label.slice(1);
+  return { delivery: 'ارسال و تحویل', payment: 'پرداخت', refund: 'بازگشت وجه', product_quality: 'کیفیت کالا', account: 'حساب کاربری', other: 'سایر' }[cat] ?? cat;
 }
 
 export function formatDate(iso: string | null): string {
   if (!iso) return '-';
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toISOString().replace('T', ' ').slice(0, 16);
+  return new Intl.DateTimeFormat('fa-IR', { dateStyle: 'short', timeStyle: 'short', timeZone: 'Asia/Tehran' }).format(d);
 }

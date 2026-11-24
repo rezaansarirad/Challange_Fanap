@@ -6,10 +6,10 @@ describe('format helpers', () => {
     expect(formatPercent(0, 0)).toBe('0.0%');
   });
   it('formats category labels', () => {
-    expect(formatCategory('product_quality')).toBe('Product quality');
+    expect(formatCategory('product_quality')).toBe('کیفیت کالا');
   });
   it('formats dates', () => {
-    expect(formatDate('2024-03-01T10:15:00Z')).toBe('2024-03-01 10:15');
+    expect(formatDate('2024-03-01T10:15:00Z')).toBe('۱۴۰۲/۱۲/۱۱, ۱۳:۴۵');
     expect(formatDate(null)).toBe('-');
   });
 });

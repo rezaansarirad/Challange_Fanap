@@ -3,24 +3,24 @@ import { formatCategory, formatDate } from '../format';
 
 const MAX_ROWS = 200;
 
-function highlightOrders(text: string): string {
-  return text.replace(/BZ-[0-9]+/g, (id) => `<mark class="order-ref">${id}</mark>`);
+function OrderAwareText({ text }: { text: string }) {
+  const parts = text.split(/(BZ-[0-9]+)/gi);
+  return <>{parts.map((part, index) => /^BZ-[0-9]+$/i.test(part) ? <mark className="order-ref" key={`${part}-${index}`}>{part}</mark> : part)}</>;
 }
 
 export default function MessagesTable({ messages }: { messages: Message[] }) {
   const rows = messages.slice(0, MAX_ROWS);
   return (
     <section className="card">
-      <h2>Messages</h2>
+      <h2>همه پیام‌ها</h2>
       {messages.length > MAX_ROWS && (
-        <p className="muted">Showing first {MAX_ROWS} of {messages.length.toLocaleString()}.</p>
+        <p className="muted">نمایش {MAX_ROWS} پیام از {messages.length.toLocaleString('fa-IR')} پیام.</p>
       )}
       <div className="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>ID</th><th>Category</th><th>Urgent</th><th>Order</th>
-              <th>Channel</th><th>Received</th><th>Subject</th><th>Body</th>
+              <th>شناسه</th><th>دسته‌بندی</th><th>فوری</th><th>سفارش</th><th>کانال</th><th>دریافت</th><th>موضوع</th><th>پیام</th>
             </tr>
           </thead>
           <tbody>
@@ -28,12 +28,12 @@ export default function MessagesTable({ messages }: { messages: Message[] }) {
               <tr key={m.message_id}>
                 <td>{m.message_id}</td>
                 <td>{formatCategory(m.category)}</td>
-                <td>{m.is_urgent ? 'Yes' : ''}</td>
+                <td>{m.is_urgent ? 'بله' : '—'}</td>
                 <td>{m.order_ref ?? '-'}</td>
                 <td>{m.channel}</td>
                 <td>{formatDate(m.received_at)}</td>
                 <td dir="auto">{m.subject}</td>
-                <td dir="auto" className="body-cell" dangerouslySetInnerHTML={{ __html: highlightOrders(m.body) }} />
+                <td dir="auto" className="body-cell"><OrderAwareText text={m.body} /></td>
               </tr>
             ))}
           </tbody>
