@@ -35,8 +35,8 @@ export default function App() {
 
   return (
     <main className="container" dir="rtl">
-      <header className="app-header"><div><p className="eyebrow">بازارچه / عملیات پشتیبانی</p><h1>پیگیری پیام‌های مشتریان</h1><p className="muted">صادرات روزانه را بارگذاری کنید تا موارد مهم را با اطمینان پیگیری کنید.</p></div><div className="live-indicator" role="status" aria-atomic="true"><span /> به‌روزرسانی زنده هر دقیقه</div></header>
-      <UploadForm onSubmit={handleSubmit} loading={loading} />
+      <header className="app-header"><div><p className="eyebrow">بازارچه / عملیات پشتیبانی</p><h1>پیگیری پیام‌های مشتریان</h1><p className="muted">فایل CSV پیام‌های پشتیبانی را بارگذاری کنید تا موارد مهم را ببینید.</p><div className="header-tags"><span>تقویم کاری تهران</span><span>تحلیل امن فایل CSV</span></div></div><div className="live-indicator" role="status" aria-atomic="true"><span /> به‌روزرسانی زنده هر دقیقه</div></header>
+      <section className="intake-layout" aria-label="بارگذاری و تحلیل پیام‌ها"><div className="intake-form"><UploadForm onSubmit={handleSubmit} loading={loading} /></div><aside className="intake-aside"><p className="eyebrow">مسیر تحلیل</p><h2>از فایل خام تا اولویت‌های قابل اقدام</h2><ol><li><span>۱</span><div><strong>بارگذاری امن</strong><small>فقط فایل CSV خروجی پشتیبانی</small></div></li><li><span>۲</span><div><strong>حذف ارسال‌های تکراری</strong><small>آمار بر اساس پیام‌های یکتا</small></div></li><li><span>۳</span><div><strong>نمایش اولویت پاسخ</strong><small>بر مبنای تقویم کاری تهران</small></div></li></ol></aside></section>
       {error && <p className="error" role="alert">{error}</p>}
       {loading && <DashboardSkeleton />}
       {result && (
