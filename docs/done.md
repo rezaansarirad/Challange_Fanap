@@ -12,3 +12,5 @@
 - Verified `npm run build`, `npm test` (5 tests), and 13 non-API Python tests. Full API collection requires the repository's Docker Python 3.12 because the host interpreter is Python 3.9.
 - Refined Persian copy, added accessible drag-and-drop CSV selection, replaced the native date-time field with styled UTC fields, and added design-consistent loading skeletons.
 - Upgraded the dashboard intake layout with clear Persian microcopy, hierarchy tags, a workflow panel, and responsive desktop/tablet/mobile layout rules.
+- Removed the non-essential workflow panel after review. Restored a functional calendar/time picker, fixed the click/drag file selection event flow, and made the upload area a focused responsive form.
+- Replaced the browser-native date input with a custom Jalali date/time picker. If left untouched, it displays and submits the current Tehran date/time.
