@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { analyze } from './api';
 import type { AnalyzeResult } from './types';
 import UploadForm from './components/UploadForm';
@@ -14,6 +14,14 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [now, setNow] = useState(() => Date.now());
+  const resultsRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!result || loading) return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    resultsRef.current?.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'start' });
+    resultsRef.current?.focus({ preventScroll: true });
+  }, [result, loading]);
 
   useEffect(() => {
     const interval = window.setInterval(() => setNow(Date.now()), 60_000);
@@ -40,12 +48,13 @@ export default function App() {
       {error && <p className="error" role="alert">{error}</p>}
       {loading && <DashboardSkeleton />}
       {result && !loading && (
-        <>
+        <section ref={resultsRef} tabIndex={-1} aria-label="نتایج تحلیل پیام‌ها" style={{ scrollMarginTop: 24 }}>
+          <h2>نتایج تحلیل پیام‌ها</h2>
           <SummaryTiles total={result.total_unique_messages} urgent={result.messages.filter((message) => result.attention_message_ids.includes(message.message_id) && businessMinutesLeft(message.received_at, now) <= 0).length} />
           <CategoryBreakdown counts={result.category_counts} total={result.total_unique_messages} />
           <AttentionList ids={result.attention_message_ids} messages={result.messages} now={now} />
           <MessagesTable messages={result.messages} />
-        </>
+        </section>
       )}
     </main>
   );

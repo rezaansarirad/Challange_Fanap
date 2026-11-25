@@ -1,5 +1,7 @@
 # Completed work
 
+- Successful CSV analysis now scrolls to and focuses the results section, respecting reduced-motion preferences. A visible results heading clarifies where the output starts.
+
 - Verified eval_messages.csv through frontend-origin API (200, 314 rows/293 unique). CSV selection/drop now starts analysis immediately and announces loading state; added a regression test for automatic submission.
 
 - Calendar dialog polish: removed inherited minimum label widths that caused horizontal overflow, constrained the month grid, made hover labels white, and isolated arrow direction from RTL mirroring.
