@@ -1,5 +1,7 @@
 # Completed work
 
+- Added an explicit demo-template button after draft service failure. It opens an editable Persian/English safe template with a visible non-AI label; the real draft API still returns blocked when the LLM is unavailable.
+
 - Successful CSV analysis now scrolls to and focuses the results section, respecting reduced-motion preferences. A visible results heading clarifies where the output starts.
 
 - Verified eval_messages.csv through frontend-origin API (200, 314 rows/293 unique). CSV selection/drop now starts analysis immediately and announces loading state; added a regression test for automatic submission.
