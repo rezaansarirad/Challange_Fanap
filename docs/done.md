@@ -1,5 +1,7 @@
 # Completed work
 
+- CSV selection now only prepares the file; analysis requires the analyze button. Unified selected-file form state fixes the false required-file error after selection/drop. Removed automatic-analysis and retry helper copy; updated regression coverage.
+
 - Added an explicit demo-template button after draft service failure. It opens an editable Persian/English safe template with a visible non-AI label; the real draft API still returns blocked when the LLM is unavailable.
 
 - Successful CSV analysis now scrolls to and focuses the results section, respecting reduced-motion preferences. A visible results heading clarifies where the output starts.
