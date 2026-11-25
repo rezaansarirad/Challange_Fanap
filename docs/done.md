@@ -1,5 +1,7 @@
 # Completed work
 
+- Added seven user-provided application screenshots in `screenshots/` for the submission and GitHub repository.
+
 - CSV selection now only prepares the file; analysis requires the analyze button. Unified selected-file form state fixes the false required-file error after selection/drop. Removed automatic-analysis and retry helper copy; updated regression coverage.
 
 - Added an explicit demo-template button after draft service failure. It opens an editable Persian/English safe template with a visible non-AI label; the real draft API still returns blocked when the LLM is unavailable.
