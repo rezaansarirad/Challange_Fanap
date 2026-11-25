@@ -1,5 +1,19 @@
 # Bazarcheh support dashboard
 
+<p align="center">
+  <img src="assets/sticker.gif" alt="A friendly character working on a laptop" width="220" />
+</p>
+
+Persian RTL support triage dashboard with business-hour SLA tracking, CSV analysis, and on-demand reply drafts.
+
+Run with `docker compose up --build`, then open http://localhost:5173.
+
+Upload a support export such as `messages_sample.csv` or `eval_messages.csv`. The submission file `predictions.csv` is an output, not a valid message export for upload.
+
+Implementation notes and verification status are in [`docs/`](docs/). The original challenge brief is preserved below.
+
+---
+
 Hi, and thanks for taking this on.
 
 Some context first. Sara, who leads support at Bazarcheh, is drowning in messages. They come in from the app, the website form, email, Telegram and Instagram, mostly in Persian, some in English, and a fair amount in that Finglish mix everyone types on their phone. A previous developer started a dashboard to help her understand what customers struggle with and to catch urgent issues fast, but left mid-way. It's partly working and we don't fully trust its numbers.

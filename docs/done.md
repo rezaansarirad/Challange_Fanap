@@ -1,5 +1,10 @@
 # Completed work
 
+## GitHub README artwork
+
+- Added the user-provided animated sticker at `assets/sticker.gif` and referenced it with a relative path in README.
+- Added local-artifact and secret-file ignore rules before GitHub publication.
+
 ## Calendar modal and input contract review
 
 - Added a modal Persian calendar with month selection, RTL month navigation, time steppers and explicit confirmation.
