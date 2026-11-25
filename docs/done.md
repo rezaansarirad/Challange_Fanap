@@ -1,5 +1,17 @@
 # Completed work
 
+## Calendar modal and input contract review
+
+- Added a modal Persian calendar with month selection, RTL month navigation, time steppers and explicit confirmation.
+- Tested predictions.csv rejection (400) and eval_messages.csv analysis (200) through the frontend origin. Added Persian guidance for incompatible CSV files.
+- Frontend build, 6 frontend tests, and all 15 backend tests pass. See requirements-review.md for outstanding submission risks.
+
+## 2026-11-25
+
+- Fixed malformed reference timestamps: the upload form now sends the complete ISO value unchanged.
+- Corrected a missing 79-day offset in Jalali-to-Gregorian conversion and added the missing calendar grid/popover styles.
+- Frontend production build and five existing tests pass. Local runtime verification is blocked by sandbox EPERM when binding ports 8000/5173.
+
 ## 2026-11-24
 
 - Added persistent project documentation and challenge-specific engineering rules.

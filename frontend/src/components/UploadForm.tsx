@@ -1,6 +1,6 @@
 import { useState, type DragEvent } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import JalaliDatePicker from './JalaliDatePicker';
+import JalaliDatePicker from './CalendarDialog';
 
 interface Props {
   onSubmit: (file: File, now?: string) => void;
@@ -13,7 +13,7 @@ export default function UploadForm({ onSubmit, loading }: Props) {
   const fileField = register('file', { required: 'یک فایل CSV انتخاب کنید.', validate: (files) => files?.[0]?.name.toLowerCase().endsWith('.csv') || 'فرمت فایل باید CSV باشد.' });
   const selectedFile = watch('file')?.[0];
 
-  const submit: SubmitHandler<{ file: FileList; now: string }> = ({ file, now }) => onSubmit(file[0], now ? `${now}:00Z` : undefined);
+  const submit: SubmitHandler<{ file: FileList; now: string }> = ({ file, now }) => onSubmit(file[0], now || new Date().toISOString());
   function acceptFile(files: FileList | null) { if (files?.[0]) setValue('file', files, { shouldValidate: true, shouldTouch: true }); }
   function onDrop(event: DragEvent<HTMLElement>) { event.preventDefault(); setDragging(false); acceptFile(event.dataTransfer.files); }
 

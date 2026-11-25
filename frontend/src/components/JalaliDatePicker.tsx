@@ -8,6 +8,7 @@ function daysInMonth(year: number, month: number) { return month <= 6 ? 31 : mon
 function jalaliToGregorian(jy: number, jm: number, jd: number) {
   let y = jy - 979; let days = 365 * y + Math.floor(y / 33) * 8 + Math.floor(((y % 33) + 3) / 4) + jd - 1;
   for (let m = 1; m < jm; m += 1) days += m <= 6 ? 31 : 30;
+  days += 79;
   let gy = 1600 + 400 * Math.floor(days / 146097); days %= 146097;
   let leap = true; if (days >= 36525) { days -= 1; gy += 100 * Math.floor(days / 36524); days %= 36524; if (days >= 365) days += 1; else leap = false; }
   gy += 4 * Math.floor(days / 1461); days %= 1461; if (days >= 366) { leap = false; days -= 1; gy += Math.floor(days / 365); days %= 365; }

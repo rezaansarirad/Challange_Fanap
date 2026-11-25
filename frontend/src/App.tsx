@@ -39,7 +39,7 @@ export default function App() {
       <section className="intake-layout" aria-label="بارگذاری و تحلیل پیام‌ها"><UploadForm onSubmit={handleSubmit} loading={loading} /></section>
       {error && <p className="error" role="alert">{error}</p>}
       {loading && <DashboardSkeleton />}
-      {result && (
+      {result && !loading && (
         <>
           <SummaryTiles total={result.total_unique_messages} urgent={result.messages.filter((message) => result.attention_message_ids.includes(message.message_id) && businessMinutesLeft(message.received_at, now) <= 0).length} />
           <CategoryBreakdown counts={result.category_counts} total={result.total_unique_messages} />
