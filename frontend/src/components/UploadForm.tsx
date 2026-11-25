@@ -14,7 +14,12 @@ export default function UploadForm({ onSubmit, loading }: Props) {
   const selectedFile = watch('file')?.[0];
 
   const submit: SubmitHandler<{ file: FileList; now: string }> = ({ file, now }) => onSubmit(file[0], now || new Date().toISOString());
-  function acceptFile(files: FileList | null) { if (files?.[0]) setValue('file', files, { shouldValidate: true, shouldTouch: true }); }
+  function acceptFile(files: FileList | null) {
+    const file = files?.[0];
+    if (!file || loading) return;
+    setValue('file', files, { shouldValidate: true, shouldTouch: true });
+    if (file.name.toLowerCase().endsWith('.csv')) onSubmit(file, watch('now') || new Date().toISOString());
+  }
   function onDrop(event: DragEvent<HTMLElement>) { event.preventDefault(); setDragging(false); acceptFile(event.dataTransfer.files); }
 
   return (
@@ -25,6 +30,7 @@ export default function UploadForm({ onSubmit, loading }: Props) {
       </label>
       {errors.file && <p className="field-error" role="alert">{errors.file.message}</p>}
       <div className="calendar-field"><input type="hidden" {...register('now')} /><JalaliDatePicker onChange={(value) => setValue('now', value)} /><p>زمان انتخاب‌شده به وقت تهران و با تقویم جلالی است.</p></div>
+      <p role="status" aria-live="polite">{loading ? 'فایل در حال بارگذاری و تحلیل است…' : selectedFile ? 'فایل انتخاب شد؛ برای تلاش دوباره روی تحلیل فایل بزنید.' : 'با انتخاب فایل CSV، تحلیل خودکار شروع می‌شود.'}</p>
       <button type="submit" data-testid="analyze-button" disabled={loading}>
         {loading ? 'در حال تحلیل…' : 'تحلیل فایل'}
       </button>
