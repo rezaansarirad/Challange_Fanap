@@ -1,5 +1,7 @@
 # Completed work
 
+- Calendar dialog polish: removed inherited minimum label widths that caused horizontal overflow, constrained the month grid, made hover labels white, and isolated arrow direction from RTL mirroring.
+
 ## GitHub README artwork
 
 - Added the user-provided animated sticker at `assets/sticker.gif` and referenced it with a relative path in README.

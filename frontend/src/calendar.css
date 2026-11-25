@@ -1,3 +1,14 @@
-.date-dialog { border:1px solid #dbeafe; border-radius:20px; padding:0; width:min(410px,calc(100vw - 32px)); color:#172554; background:white; box-shadow:0 30px 90px #0f172a40; font-family:inherit; }
+.date-dialog { border:1px solid #dbeafe; border-radius:20px; padding:0; width:min(410px,calc(100vw - 32px)); max-width:calc(100vw - 32px); max-height:calc(100dvh - 32px); overflow-x:hidden; overflow-y:auto; color:#172554; background:white; box-shadow:0 30px 90px #0f172a40; font-family:inherit; }
 .date-dialog::backdrop { background:#0f172a70; backdrop-filter:blur(4px); }
+.date-dialog .dialog-content { width:100%; min-width:0; }
+.date-dialog .dialog-title h2 { font-size:17px; overflow-wrap:anywhere; }
+.date-dialog .calendar-nav { display:grid; grid-template-columns:44px minmax(0,1fr) 44px; gap:8px; direction:rtl; }
+.date-dialog .calendar-nav button { min-width:0; padding:8px; }
+.date-dialog .calendar-nav button:not(.month-title) { direction:ltr; unicode-bidi:isolate; }
+.date-dialog .month-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.date-dialog .month-grid button { min-width:0; padding:10px 4px; font-size:14px; }
+.date-dialog .time-steppers > div, .date-dialog .time-steppers label { min-width:0; width:auto; }
+.date-dialog button:hover:not(:disabled) { background:#1d4ed8; color:#fff; transform:none; }
+.date-dialog button:hover:not(:disabled) * { color:inherit; }
+@media(max-height:650px) { .date-dialog .dialog-content { padding:14px; }.date-dialog .calendar-days button { min-height:32px; }.date-dialog .month-grid { min-height:180px; } }
 .dialog-content { padding:22px; }.dialog-title { display:flex; align-items:center; justify-content:space-between; }.dialog-title h2 { margin:0; font-size:18px; }.dialog-title button { background:#f1f5f9; color:#475569; font-size:22px; padding:4px 12px; }.date-dialog .calendar-nav { margin-top:20px; }.date-dialog .month-title { font-size:16px; }.month-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; min-height:244px; }.month-grid button { background:#f8fafc; color:#334155; }.month-grid button[aria-pressed=true] { background:#1e40af; color:white; }.time-steppers { display:flex; gap:16px; border-top:1px solid #e2e8f0; margin-top:18px; padding-top:18px; }.time-steppers > div { flex:1; }.time-steppers label { display:block; font-size:13px; color:#64748b; margin-bottom:8px; }.time-steppers > div > div { display:flex; align-items:center; justify-content:space-between; border:1px solid #dbeafe; border-radius:10px; padding:4px; }.time-steppers button { color:#1e40af; background:#eff6ff; padding:6px 10px; }.time-steppers output { font-size:21px; font-weight:600; }.confirm-date { width:100%; margin-top:20px; }.upload.card { display:flex; flex-direction:column; align-items:stretch; max-width:760px; margin-inline:auto; }.upload .dropzone { flex:none; min-height:180px; }.calendar-field { width:100%; }.date-dialog .calendar-days button { min-height:42px; }.calendar-trigger { gap:16px; }.calendar-trigger b { white-space:nowrap; }

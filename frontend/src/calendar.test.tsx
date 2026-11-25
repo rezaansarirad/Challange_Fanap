@@ -9,7 +9,7 @@ it('lets the user browse months and confirms a valid UTC date', () => {
   fireEvent.click(screen.getByRole('button', { name: /تاریخ و ساعت مرجع/ }));
   fireEvent.click(screen.getByRole('button', { name: /⌄/ }));
   fireEvent.click(screen.getByRole('button', { name: 'فروردین' }));
-  fireEvent.click(screen.getByRole('button', { name: '1', exact: true }));
+  fireEvent.click(screen.getByRole('button', { name: /^1$/ }));
   fireEvent.click(screen.getByRole('button', { name: 'افزایش دقیقه' }));
   fireEvent.click(screen.getByRole('button', { name: 'تأیید تاریخ و ساعت' }));
   expect(change).toHaveBeenCalledOnce();
