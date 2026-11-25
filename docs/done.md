@@ -1,5 +1,7 @@
 # Completed work
 
+- Embedded all seven application screenshots in the repository README with descriptive captions and a clear demo-template label.
+
 - Added seven user-provided application screenshots in `screenshots/` for the submission and GitHub repository.
 
 - CSV selection now only prepares the file; analysis requires the analyze button. Unified selected-file form state fixes the false required-file error after selection/drop. Removed automatic-analysis and retry helper copy; updated regression coverage.

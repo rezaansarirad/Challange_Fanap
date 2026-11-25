@@ -12,6 +12,36 @@ Upload a support export such as `messages_sample.csv` or `eval_messages.csv`. Th
 
 Implementation notes and verification status are in [`docs/`](docs/). The original challenge brief is preserved below.
 
+## Screenshots
+
+### Upload support messages
+
+![CSV upload screen](screenshots/upload-empty.png)
+
+![Selected CSV ready for analysis](screenshots/upload-selected.png)
+
+### Analysis summary
+
+![Unique messages, urgent count and category breakdown](screenshots/analysis-summary.png)
+
+### Messages needing attention
+
+![SLA-ordered attention list](screenshots/attention-list.png)
+
+### Editable reply draft
+
+The screenshot shows the explicitly labelled demo template used to test editing and copying without an LLM connection.
+
+![Demo reply draft editor](screenshots/draft-editor.png)
+
+### All messages
+
+![Support messages table](screenshots/messages-table.png)
+
+### Persian calendar dialog
+
+![Custom Jalali date and time dialog](screenshots/calendar-dialog.png)
+
 ---
 
 Hi, and thanks for taking this on.
